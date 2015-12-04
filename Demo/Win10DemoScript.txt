@@ -1,0 +1,116 @@
+Win 10 Demos
+
+Hello World
+
+1. File > New Project > Universal > Blank Project
+1.1 Right click on the project - show the Targeting drop downs
+
+2. Explain the project
+ - a. Open the references node. We have references to nuget packages and the Universal Windows API
+	- Open referneces, show the available extensions, add the mobile extension
+ - b. Open Package.appxmanifest - this is where we configure settions about our app
+	- In Tile Update paste: http://pollsite.azurewebsites.net/TileUpdate.aspx
+		-Pin the app to start to see it
+ - c. Open Visual Assets, explain this
+ - d. Open capabilities - explain that this opts in to capabilities
+
+3. Paste this into MainPge.xaml
+        <StackPanel x:Name="contentPanel">
+            <TextBlock Text="Hello World!" Margin="0,40,0,40"></TextBlock>
+            <TextBlock Text="What is your name?"></TextBlock>
+            <StackPanel x:Name="inputPanel" Margin="0,20,0,20" Orientation="Horizontal">
+                <TextBox x:Name="tbName" Width="200" HorizontalAlignment="Left"></TextBox>
+                <Button x:Name="btnInput" Content="Say Hello" Click="btnInput_Click"></Button>
+            </StackPanel>
+            <TextBlock x:Name="greetingOutput"></TextBlock>
+        </StackPanel>
+3.1 - in XAML designer , demonstrate the different form factors
+
+4. Launch the app on the local machine
+5. Launch the app on the mobile emulator
+	On the mobile emulator the button should not fit
+6. Paste this code inside the <Grid> element
+ <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="wideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="641" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="narrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="inputPanel.Orientation" Value="Vertical"/>
+                        <Setter Target="btnInput.Margin" Value="0,4,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>	
+
+7. Paste this inside the MainPage constructor
+            bool isHardwareButtonsAPIPresent =
+                Windows.Foundation.Metadata.ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons");
+            if(isHardwareButtonsAPIPresent)
+                Windows.Phone.UI.Input.HardwareButtons.CameraPressed += HardwareButtons_CameraPressed;
+
+8. Implement these events:
+        private void HardwareButtons_CameraPressed(object sender, Windows.Phone.UI.Input.CameraEventArgs e)
+        {
+            var messageDialog = new Windows.UI.Popups.MessageDialog("You clicked the camera button");
+            messageDialog.ShowAsync();
+        }
+
+        private void btnInput_Click(object sender, RoutedEventArgs e)
+        {
+            this.greetingOutput.Text = $"Hello {tbName.Text}!";
+        }
+
+9. Right click on the project > Associate App to Store
+
+Demo 2 - iOS Bridge
+Download and extract the release (0.1 preview is what i used)
+https://github.com/Microsoft/WinObjC/releases
+
+See here: https://github.com/Microsoft/WinObjC/wiki/Using-vsimporter
+1. Open folder D:\Win10Development\winobjc (or wherever you extracted it)
+2. Open in the command line
+3. Run  ..\..\bin\vsimporter.exe
+4. Open the generated Win10 solution
+5. Browse the code, show the settings
+6. Run the app
+7. Set a breakpoint on WebViewControllers viewDidLoad method
+8. Run the app and hit the breakpoint
+
+
+Demo 3 - Web Application Bridge
+http://microsoftedge.github.io/WebAppsDocs/en-US/win10/CreateHWA.htm
+
+1. File > New > Javascript > Windows > Universal app
+2. Delete css, js, winJS and default.html
+3. Open package.appxmanifest
+4. For Start Page, paste: http://codepen.io/seksenov/pen/wBbVyb/?editors=101
+5. Click ContentURIs tab, add 1. http://codepen.io/seksenov/pen/wBbVyb/?editors=101 and 2. http://*.codepen.io/
+ - Make sure All is selected for both
+6. CLick the toast notification button -- this web app is interfacing with native windows funcaionltiy, it is in Windows app chrome, and follows the universal app lifecycle
+7. Copy and paste this case:
+function cameraCapture() {
+  if(typeof Windows != 'undefined') {
+   var captureUI = new Windows.Media.Capture.CameraCaptureUI();
+   //Set the format of the picture that's going to be captured (.png, .jpg, ...)
+   captureUI.photoSettings.format = Windows.Media.Capture.CameraCaptureUIPhotoFormat.png;
+   //Pop up the camera UI to take a picture
+   captureUI.captureFileAsync(Windows.Media.Capture.CameraCaptureUIMode.photo).then(function (capturedItem) {
+      // Do something with the picture
+   });
+  }
+}
+
+8. Capture the photo. AMazing that you can access the full UWP APIs from a Hosted Web App
+
+Demo 4 - Edge
+1. Go to modern.ie
+2. Show the VMs, Remoteapp, site scanner, etc
+
+
