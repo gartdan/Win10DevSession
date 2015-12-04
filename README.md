@@ -1,31 +1,3 @@
 # Win10DevSession
 Content for a Windows 10 for Developers Session
 
-Agenda
-	• Session 1 - Introduction to the Universal Windows Platform for Developers - 75 minutes
-		? Objective: An overview of Universal Windows Apps and the Universal Windows Platform in Windows 10, as well as the Visual Studio 2015 Developer tools
-		? Overview of Universal Windows Platform
-			§ Universal App Platform for Windows 10 Devices
-				? Write Once - Deploy to Every Windows Device
-				? Overview of Universal Apps
-					® How are they different from conventional Win32 apps
-		? Universal Windows App Development Tools
-			§ Overview of the Development Tools for Windows 10
-				? Windows 10 Tools / SDKs and Emulators
-	• Session 2 - Building Apps for Windows 10 - 75 minutes
-		? Objective: A deeper dive into the APIs and samples, as well as coverage of app migration and "bridges."
-		? New APIs for Windows 10
-			§ (Cortana, Device-specific extensions, various Nuget packages, etc)
-		? Migration & Bridges
-			§ Strategies for Migrating Apps from other platforms
-			§ Overview of the various Bridges that can be used to partially automate the migration
-				? Convert Web Applications into Windows Applications with Hosted Web Apps
-	• Session 3 - Edge for Developers - 60 minutes
-		? Overview of Edge Capabilities and Features
-		? Overview of Cross-Browser Testing tools 
-			§ Tools on modern.ie
-				? Quick site scan, Screenshot generator, VMs, etc
-		? What developers need to know
-			§ HTML5 (and related technologies) support
-			§ Compatibility
-"Enterprise Mode"
